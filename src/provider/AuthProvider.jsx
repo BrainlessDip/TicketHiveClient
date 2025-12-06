@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -6,7 +7,7 @@ const AuthProvider = ({ children }) => {
   const value = {
     user,
     setUser,
-    a: 12,
+    loading: true,
   };
   return <AuthContext value={value}>{children}</AuthContext>;
 };
