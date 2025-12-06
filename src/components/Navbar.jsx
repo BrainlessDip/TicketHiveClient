@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { user, theme, setTheme } = useContext(AuthContext);
+  const { user, theme, setTheme, handleSignoutUser } = useContext(AuthContext);
 
   useEffect(() => {
     localStorage.setItem("dark", JSON.stringify(theme));
@@ -17,7 +17,7 @@ const Navbar = () => {
     <>
       {user ? (
         <li>
-          <NavLink to={"/"} className="text-[20px]">
+          <NavLink to={"/"} className="btn-hover-primary text-[20px]">
             Home
           </NavLink>
         </li>
@@ -76,20 +76,18 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user && (
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end ">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="btn btn-ghost hover:ring-offset-2 btn-circle avatar mx-1"
               >
-                <div className="w-10 rounded-full">
+                <div className="w-10 rounded-full hover:bg-black">
                   {user.photoURL ? (
                     <img src={user.photoURL} />
                   ) : (
                     <img
-                      src={`https://img.icons8.com/?size=100&id=fUUEbUbXhzOA&format=png&color=${
-                        theme ? "ffffff" : "000000"
-                      }`}
+                      src="https://img.icons8.com/?size=100&id=fUUEbUbXhzOA&format=png&color=ffffff "
                       alt="profile avatar"
                       width={100}
                       height={100}
@@ -100,7 +98,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-300 rounded-box z-1 mt-3 w-52 shadow"
+                className="menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-3.5 w-52 shadow"
               >
                 <div className="flex justify-center items-center flex-col gap-3 p-2">
                   <label className="flex cursor-pointer gap-2">
@@ -120,8 +118,7 @@ const Navbar = () => {
                     </svg>
                     <input
                       type="checkbox"
-                      value="synthwave"
-                      className="toggle theme-controller"
+                      className="toggle bg-white checked:bg-black border-0 "
                       defaultChecked={theme}
                       onChange={(e) => {
                         setTheme(e.target.checked);
@@ -141,17 +138,20 @@ const Navbar = () => {
                       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
                   </label>
-                  <a className="justify-between font-bold">{user.email}</a>
+
                   <li>
-                    <Link to={"/profile"} className="justify-between text-2xl">
+                    <Link
+                      to={"/profile"}
+                      className="btn-hover-primary justify-between text-2xl"
+                    >
                       My Profile
                     </Link>
                   </li>
                   <li>
                     <a
-                      className="justify-between text-2xl"
+                      className="btn-hover-primary justify-between text-2xl"
                       onClick={() => {
-                        alert("logut");
+                        handleSignoutUser();
                       }}
                     >
                       Log out

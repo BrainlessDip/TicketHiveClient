@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import auth from "./../firebase/firebase.init";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState(JSON.parse(localStorage.getItem("dark")));
   const [loading, setLoading] = useState(true);
+
+  const handleSignoutUser = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,6 +37,7 @@ const AuthProvider = ({ children }) => {
     setTheme,
     loading,
     theme,
+    handleSignoutUser,
   };
   return <AuthContext value={value}>{children}</AuthContext>;
 };
