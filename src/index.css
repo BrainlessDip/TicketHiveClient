@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@plugin "daisyui" {
+  themes: light --default, dark;
+}
+
+a.active {
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
