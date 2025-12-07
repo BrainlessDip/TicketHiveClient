@@ -84,25 +84,28 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col relative min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-74px)]">
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          <legend className="fieldset-legend text-4xl">Login</legend>
-          <form onSubmit={handleEmailSignin}>
-            <label className="label">Email</label>
+      <div className="flex justify-center items-center flex-col relative min-h-[calc(100vh-95px)] md:min-h-[calc(100vh-95px)] px-4">
+        <h2 className="text-4xl font-bold drop-shadow-xl mb-6 tracking-tight">
+          Login
+        </h2>
+        <fieldset className="fieldset bg-base-100 border border-base-300 rounded-2xl w-full max-w-sm p-6 shadow-xl">
+          <form onSubmit={handleEmailSignin} className="space-y-3">
+            <label className="label font-semibold">Email</label>
             <input
               type="email"
-              className="input focus:outline-0"
+              className="input input-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full"
               name="email"
               placeholder="Email"
               autoComplete="username"
               ref={emailRef}
               required
             />
-            <label className="label">Password</label>
+
+            <label className="label font-semibold">Password</label>
             <div className="relative w-full">
               <input
                 type={showPassword ? "text" : "password"}
-                className="input focus:outline-0"
+                className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                 placeholder="Password"
                 name="password"
                 autoComplete="current-password"
@@ -111,28 +114,31 @@ const Login = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-2xl text-white hover:opacity-50"
+                className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-2xl text-base-content/70 hover:opacity-60"
               >
                 {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
               </button>
             </div>
-            <button className="btn btn-primary mt-4 w-full">Login</button>
-            <p className="mt-1 text-[16px] text-center text-blue-600 ">
+
+            <button className="btn btn-primary mt-4 w-full text-[17px] shadow-md hover:shadow-lg duration-200">
+              Login
+            </button>
+
+            <p className="mt-1 text-[15px] text-center text-primary">
               Don’t have an account?{" "}
               <span
-                className="font-semibold hover:text-blue-800 cursor-pointer"
+                className="font-semibold hover:underline cursor-pointer"
                 onClick={() => navigate("/register")}
               >
                 Register now
               </span>
             </p>
           </form>
-          <div className="flex justify-around items-center mt-2">
+
+          <div className="flex justify-center items-center mt-4">
             <button
-              onClick={() => {
-                handleSignin();
-              }}
-              className="btn bg-white text-black border-[#e5e5e5]"
+              onClick={handleSignin}
+              className="btn bg-white text-black border border-base-300 shadow-sm hover:shadow duration-200"
             >
               <svg
                 aria-label="Google logo"

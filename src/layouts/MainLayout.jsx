@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 const MainLayout = () => {
   const { loading } = use(AuthContext);
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="container mx-auto">
       {loading ? (
         <Loading></Loading>
       ) : (
