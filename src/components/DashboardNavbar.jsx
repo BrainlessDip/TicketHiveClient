@@ -115,6 +115,23 @@ export default function DashboardNavbar({ children }) {
                   </li>
                 </>
               )}
+
+              {role === "admin" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/manage-tickets"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Manage Tickets"
+                    >
+                      <IoTicketOutline className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Manage Tickets
+                      </span>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
