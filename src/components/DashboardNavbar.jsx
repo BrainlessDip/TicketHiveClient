@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { RxAvatar } from "react-icons/rx";
 import { IoTicketOutline } from "react-icons/io5";
+import { LuTicketCheck } from "react-icons/lu";
 import useRole from "../hooks/useRole";
 
 export default function DashboardNavbar({ children }) {
@@ -87,6 +88,18 @@ export default function DashboardNavbar({ children }) {
 
               {role === "vendor" && (
                 <>
+                  <li>
+                    <Link
+                      to="/dashboard/my-added-ticket"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My Added Ticket"
+                    >
+                      <LuTicketCheck className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        My Added Ticket
+                      </span>
+                    </Link>
+                  </li>
                   <li>
                     <Link
                       to="/dashboard/add-ticket"

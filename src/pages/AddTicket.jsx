@@ -72,6 +72,7 @@ export default function AddTicketForm() {
       setSubmitting(false);
       e.target.reset();
       setImageFile(null);
+      setSelectedPerks([]);
     }
   };
 
