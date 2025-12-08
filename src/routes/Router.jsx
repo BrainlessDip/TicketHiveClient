@@ -6,7 +6,9 @@ import Register from "../pages/Register";
 import NonUserRounte from "./NonUserRounte";
 import ResetPassword from "../pages/ResetPassword";
 import PrivateRoute from "./PrivateRoute";
-import Profile from "../pages/Profile";
+import Profile from "../pages/UserProfile";
+import DashboardLayout from "../layouts/DashboardLayout";
+import UserRounte from "./UserRounte";
 
 export const router = createBrowserRouter([
   {
@@ -39,12 +41,24 @@ export const router = createBrowserRouter([
           </NonUserRounte>
         ),
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    HydrateFallback: Loading,
+    children: [
+      { index: true, element: <h1>Dashboard</h1> },
       {
-        path: "/profile",
+        path: "/dashboard/profile",
         element: (
-          <PrivateRoute>
+          <UserRounte>
             <Profile></Profile>
-          </PrivateRoute>
+          </UserRounte>
         ),
       },
     ],

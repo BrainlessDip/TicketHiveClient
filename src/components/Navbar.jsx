@@ -151,7 +151,7 @@ const Navbar = () => {
 
                   <li>
                     <Link
-                      to={"/profile"}
+                      to={"/dashboard/profile"}
                       className="btn-hover-primary justify-between text-2xl"
                     >
                       My Profile
