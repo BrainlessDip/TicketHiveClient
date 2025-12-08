@@ -1,6 +1,34 @@
 import React from "react";
+import { Link } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
-const TicketCard = ({ ticket }) => {
+const TicketCard = ({ ticket, refetch }) => {
+  const api = useAxiosSecure();
+
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`/my-tickets/${id}`);
+        refetch();
+        toast.success("Ticket deleted successfully!");
+      } catch (error) {
+        toast.error("Failed to delete the ticket.");
+      }
+    }
+  };
+
   return (
     <div className="max-w-sm w-full bg-primary/10 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:ring-offset-1">
       {ticket?.imageUrl && (
@@ -48,14 +76,28 @@ const TicketCard = ({ ticket }) => {
 
         {ticket.perks && ticket.perks.length > 0 && (
           <div className="mt-2">
-            <strong>Perks:</strong>
-            <ul className="list-disc list-inside">
-              {ticket.perks.map((perk, index) => (
-                <li key={index}>{perk}</li>
-              ))}
-            </ul>
+            <strong>Perks: </strong> {ticket.perks.join(", ")}
           </div>
         )}
+        <div className="mt-3 flex justify-center items-center gap-5">
+          <Link to={`/dashboard/edit-ticket/${ticket._id}`}>
+            <button
+              className="btn btn-outline btn-primary btn-sm"
+              disabled={ticket.verificationStatus === "rejected"}
+            >
+              Update
+            </button>
+          </Link>
+          <button
+            onClick={() => {
+              handleDelete(ticket._id);
+            }}
+            className="btn btn-outline btn-error btn-sm hover:text-white"
+            disabled={ticket.verificationStatus === "rejected"}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

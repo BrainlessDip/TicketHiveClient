@@ -2,15 +2,29 @@ import { useState } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 const availablePerks = ["AC", "Breakfast", "WiFi", "Snacks", "Extra Legroom"];
 
-const AddTicket = () => {
+const EditTicket = () => {
   const { user } = useAuth();
-  const [submitting, setSubmitting] = useState(false);
+  const [updateing, setUpdateing] = useState(false);
   const [selectedPerks, setSelectedPerks] = useState([]);
   const [imageFile, setImageFile] = useState(null);
+  const { id } = useParams();
   const api = useAxiosSecure();
+
+  const { data: ticket = {}, refetch } = useQuery({
+    queryKey: ["user-ticket", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await api.get(`/my-tickets/${id}`);
+      setSelectedPerks(res.data.perks);
+      setImageFile(res.data.imageUrl);
+      return res.data;
+    },
+  });
 
   const handlePerkChange = (perk) => {
     setSelectedPerks((prev) =>
@@ -46,7 +60,7 @@ const AddTicket = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setSubmitting(true);
+    setUpdateing(true);
 
     try {
       const payload = {
@@ -62,17 +76,13 @@ const AddTicket = () => {
         perks: selectedPerks,
         imageUrl: imageFile,
       };
-      console.log(payload);
 
-      const res = await api.post("/add-ticket", payload);
+      const res = await api.patch(`/my-tickets/${id}`, payload);
       toast.success(res.data.message);
     } catch (err) {
-      toast.error("Error adding ticket: " + err.message);
+      toast.error("Error updating ticket: " + err.message);
     } finally {
-      setSubmitting(false);
-      e.target.reset();
-      setImageFile(null);
-      setSelectedPerks([]);
+      setUpdateing(false);
     }
   };
 
@@ -80,7 +90,7 @@ const AddTicket = () => {
     <>
       <div className="flex justify-center items-center flex-col relative min-h-[calc(100vh-95px)] md:min-h-[calc(100vh-95px)] px-4">
         <h2 className="text-4xl font-bold drop-shadow-xl mb-6 tracking-tight">
-          Add Ticket
+          Edit Ticket
         </h2>
 
         <datalist id="locations">
@@ -96,6 +106,7 @@ const AddTicket = () => {
             <label className="label font-semibold">Title</label>
             <input
               name="title"
+              defaultValue={ticket?.title}
               className="input input-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full"
               placeholder="Ticket title"
               required
@@ -106,6 +117,7 @@ const AddTicket = () => {
                 <label className="label font-semibold">From (Location)</label>
                 <input
                   name="from"
+                  defaultValue={ticket?.from}
                   list="locations"
                   autoComplete="off"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
@@ -117,6 +129,7 @@ const AddTicket = () => {
                 <label className="label font-semibold">To (Location)</label>
                 <input
                   name="to"
+                  defaultValue={ticket?.to}
                   list="locations"
                   autoComplete="off"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
@@ -131,6 +144,8 @@ const AddTicket = () => {
                 <label className="label font-semibold">Transport Type</label>
                 <select
                   name="transportType"
+                  defaultValue={ticket?.transportType}
+                  key={ticket?.transportType}
                   className="select select-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   required
                 >
@@ -148,6 +163,7 @@ const AddTicket = () => {
                 <label className="label font-semibold">Price (per unit)</label>
                 <input
                   name="pricePerUnit"
+                  defaultValue={ticket?.pricePerUnit}
                   type="number"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   placeholder="850"
@@ -160,6 +176,7 @@ const AddTicket = () => {
                 <label className="label font-semibold">Quantity</label>
                 <input
                   name="quantity"
+                  defaultValue={ticket?.quantity}
                   type="number"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   placeholder="40"
@@ -176,6 +193,16 @@ const AddTicket = () => {
               <input
                 name="departure"
                 type="datetime-local"
+                defaultValue={
+                  ticket?.departure
+                    ? new Date(
+                        new Date(ticket.departure).getTime() -
+                          new Date().getTimezoneOffset() * 60000
+                      )
+                        .toISOString()
+                        .slice(0, 16)
+                    : ""
+                }
                 className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                 required
               />
@@ -206,7 +233,6 @@ const AddTicket = () => {
                 accept="image/*"
                 onChange={handleImage}
                 className="file-input file-input-bordered w-full"
-                required
               />
               {imageFile && (
                 <div className="mt-3">
@@ -223,7 +249,7 @@ const AddTicket = () => {
               <label className="label font-semibold">Vendor name</label>
               <input
                 name="name"
-                value={user?.displayName}
+                defaultValue={user?.displayName}
                 readOnly
                 className="input input-bordered w-full bg-base-200 cursor-not-allowed"
               />
@@ -233,7 +259,7 @@ const AddTicket = () => {
               <label className="label font-semibold">Vendor email</label>
               <input
                 name="email"
-                value={user?.email}
+                defaultValue={user?.email}
                 readOnly
                 className="input input-bordered w-full bg-base-200 cursor-not-allowed"
               />
@@ -242,9 +268,9 @@ const AddTicket = () => {
             <button
               type="submit"
               className="btn btn-primary mt-0 w-full text-[17px] shadow-md hover:shadow-lg duration-200"
-              disabled={submitting}
+              disabled={updateing}
             >
-              {submitting ? "Adding ticket..." : "Add Ticket"}
+              {updateing ? "Updateing ticket..." : "Update Ticket"}
             </button>
           </form>
         </fieldset>
@@ -253,4 +279,4 @@ const AddTicket = () => {
   );
 };
 
-export default AddTicket;
+export default EditTicket;

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
 import { RxAvatar } from "react-icons/rx";
 import { IoTicketOutline } from "react-icons/io5";
 import { LuTicketCheck } from "react-icons/lu";
 import useRole from "../hooks/useRole";
+import { AuthContext } from "./../contexts/AuthContext";
 
 export default function DashboardNavbar({ children }) {
   const { role } = useRole();
+  const { theme } = use(AuthContext);
+  const themeName = theme ? "dark" : "light";
   return (
     <div>
-      <div className="drawer lg:drawer-open">
+      <div className="drawer lg:drawer-open" data-theme={themeName}>
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
@@ -90,6 +93,16 @@ export default function DashboardNavbar({ children }) {
                 <>
                   <li>
                     <Link
+                      to="/dashboard/add-ticket"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Add Ticket"
+                    >
+                      <IoTicketOutline className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">Add Ticket</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       to="/dashboard/my-added-ticket"
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       data-tip="My Added Ticket"
@@ -98,16 +111,6 @@ export default function DashboardNavbar({ children }) {
                       <span className="is-drawer-close:hidden">
                         My Added Ticket
                       </span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/add-ticket"
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Add Ticket"
-                    >
-                      <IoTicketOutline className="my-1.5 inline-block size-4" />
-                      <span className="is-drawer-close:hidden">Add Ticket</span>
                     </Link>
                   </li>
                 </>

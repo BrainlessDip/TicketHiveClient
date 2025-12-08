@@ -6,13 +6,13 @@ import TicketCard from "../components/ui/TicketCard";
 
 const MyAddedTickets = () => {
   const { user } = useContext(AuthContext);
-  const axiosSecure = useAxiosSecure();
+  const api = useAxiosSecure();
 
-  const { data: tickets = [] } = useQuery({
+  const { data: tickets = [], refetch } = useQuery({
     queryKey: ["user-tickets", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/my-tickets`);
+      const res = await api.get(`/my-tickets`);
       return res.data;
     },
   });
@@ -20,7 +20,7 @@ const MyAddedTickets = () => {
   return (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {tickets.map((ticket, index) => (
-        <TicketCard key={index} ticket={ticket} />
+        <TicketCard key={index} ticket={ticket} refetch={refetch} />
       ))}
     </div>
   );
