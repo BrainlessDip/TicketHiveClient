@@ -5,7 +5,7 @@ import { IoTicketOutline } from "react-icons/io5";
 import { LuTicketCheck } from "react-icons/lu";
 import useRole from "../hooks/useRole";
 import { AuthContext } from "./../contexts/AuthContext";
-import { FaPeopleGroup } from "react-icons/fa6";
+import { FaAdversal, FaPeopleGroup } from "react-icons/fa6";
 
 export default function DashboardNavbar({ children }) {
   const { role } = useRole();
@@ -140,6 +140,18 @@ export default function DashboardNavbar({ children }) {
                       <FaPeopleGroup className="my-1.5 inline-block size-4" />
                       <span className="is-drawer-close:hidden">
                         Manage Users
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/advertise-tickets"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Advertise Tickets"
+                    >
+                      <FaAdversal className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Advertise Tickets
                       </span>
                     </Link>
                   </li>
