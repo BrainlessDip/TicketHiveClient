@@ -3,18 +3,18 @@ import useAuth from "../hooks/useAuth";
 import Loading from "../components/ui/Loading";
 import useRole from "../hooks/useRole";
 
-const UserRounte = ({ children }) => {
+const UserRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const { role = "user" } = useRole();
+  const { role, isLoading } = useRole();
 
-  if (loading) {
+  if ((loading, isLoading)) {
     return <Loading />;
   }
 
-  if (user && role === "user") {
+  if ((user && role === "vendor") || role === "admin") {
     return children;
   }
   return <Navigate to="/" />;
 };
 
-export default UserRounte;
+export default UserRoute;

@@ -3,12 +3,14 @@ import MainLayout from "../layouts/MainLayout";
 import Loading from "../components/ui/Loading";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import NonUserRounte from "./NonUserRounte";
 import ResetPassword from "../pages/ResetPassword";
 import PrivateRoute from "./PrivateRoute";
-import Profile from "../pages/UserProfile";
+import Profile from "../pages/Profile";
 import DashboardLayout from "../layouts/DashboardLayout";
-import UserRounte from "./UserRounte";
+import UserRoute from "./UserRoute";
+import NonUserRoute from "./NonUserRoute";
+import VendorRoute from "./VendorRoute";
+import AddTicket from "../pages/AddTicket";
 
 export const router = createBrowserRouter([
   {
@@ -20,25 +22,25 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <NonUserRounte>
+          <NonUserRoute>
             <Login></Login>
-          </NonUserRounte>
+          </NonUserRoute>
         ),
       },
       {
         path: "/reset-password",
         element: (
-          <NonUserRounte>
+          <NonUserRoute>
             <ResetPassword></ResetPassword>
-          </NonUserRounte>
+          </NonUserRoute>
         ),
       },
       {
         path: "/register",
         element: (
-          <NonUserRounte>
+          <NonUserRoute>
             <Register></Register>
-          </NonUserRounte>
+          </NonUserRoute>
         ),
       },
     ],
@@ -54,12 +56,16 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <h1>Dashboard</h1> },
       {
-        path: "/dashboard/profile",
+        path: "/dashboard/add-ticket",
         element: (
-          <UserRounte>
-            <Profile></Profile>
-          </UserRounte>
+          <VendorRoute>
+            <AddTicket></AddTicket>
+          </VendorRoute>
         ),
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile></Profile>,
       },
     ],
   },

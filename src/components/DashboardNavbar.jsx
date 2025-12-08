@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router";
 import { RxAvatar } from "react-icons/rx";
+import { IoTicketOutline } from "react-icons/io5";
+import useRole from "../hooks/useRole";
 
 export default function DashboardNavbar({ children }) {
+  const { role } = useRole();
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -81,6 +84,21 @@ export default function DashboardNavbar({ children }) {
                   <span className="is-drawer-close:hidden">My Profile</span>
                 </Link>
               </li>
+
+              {role === "vendor" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/add-ticket"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Add Ticket"
+                    >
+                      <IoTicketOutline className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">Add Ticket</span>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Navigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/ui/Loading";
 
-const NonUserRounte = ({ children }) => {
+const NonUserRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -16,4 +16,4 @@ const NonUserRounte = ({ children }) => {
   return children;
 };
 
-export default NonUserRounte;
+export default NonUserRoute;
