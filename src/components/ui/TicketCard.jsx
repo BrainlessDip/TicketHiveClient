@@ -80,14 +80,12 @@ const TicketCard = ({ ticket, refetch }) => {
           </div>
         )}
         <div className="mt-3 flex justify-center items-center gap-5">
-          <Link to={`/dashboard/edit-ticket/${ticket._id}`}>
-            <button
-              className="btn btn-outline btn-primary btn-sm"
-              disabled={ticket.verificationStatus === "rejected"}
-            >
-              Update
-            </button>
-          </Link>
+          <button
+            className="btn btn-outline btn-primary btn-sm"
+            disabled={ticket.verificationStatus === "rejected"}
+          >
+            <Link to={`/dashboard/edit-ticket/${ticket._id}`}>Update</Link>
+          </button>
           <button
             onClick={() => {
               handleDelete(ticket._id);

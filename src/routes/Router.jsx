@@ -15,6 +15,7 @@ import MyAddedTickets from "../pages/MyAddedTickets";
 import EditTicket from "../pages/EditTicket";
 import AdminRoute from "./AdminRoute";
 import ManageTickets from "../pages/ManageTickets";
+import ManageUsers from "../pages/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageTickets></ManageTickets>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
           </AdminRoute>
         ),
       },
