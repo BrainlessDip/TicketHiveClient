@@ -8,7 +8,40 @@ const availablePerks = ["AC", "Breakfast", "WiFi", "Snacks", "Extra Legroom"];
 export default function AddTicketForm() {
   const { user } = useAuth();
   const [submitting, setSubmitting] = useState(false);
+  const [selectedPerks, setSelectedPerks] = useState([]);
+  const [imageFile, setImageFile] = useState(null);
   const api = useAxiosSecure();
+
+  const handlePerkChange = (perk) => {
+    setSelectedPerks((prev) =>
+      prev.includes(perk) ? prev.filter((p) => p !== perk) : [...prev, perk]
+    );
+  };
+
+  const handleImage = async (e) => {
+    const file = e.target.files[0];
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(
+        "https://api.imgbb.com/1/upload?key=14df36cab39c34955113e8a12782d9a6",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setImageFile(data.data.url);
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +59,10 @@ export default function AddTicketForm() {
         pricePerUnit: Number(e.target.pricePerUnit.value),
         quantity: Number(e.target.quantity.value),
         departure: new Date(e.target.departure.value).toISOString(),
-        perks: Array.from(
-          e.target.querySelectorAll("input[name='perks']:checked")
-        ).map((p) => p.value),
+        perks: selectedPerks,
+        imageUrl: imageFile,
       };
+      console.log(payload);
 
       const res = await api.post("/add-ticket", payload);
       toast.success(res.data.message);
@@ -37,6 +70,8 @@ export default function AddTicketForm() {
       toast.error("Error adding ticket: " + err.message);
     } finally {
       setSubmitting(false);
+      e.target.reset();
+      setImageFile(null);
     }
   };
 
@@ -46,6 +81,14 @@ export default function AddTicketForm() {
         <h2 className="text-4xl font-bold drop-shadow-xl mb-6 tracking-tight">
           Add Ticket
         </h2>
+
+        <datalist id="locations">
+          <option value="Dhaka" />
+          <option value="Chittagong" />
+          <option value="Sylhet" />
+          <option value="Rajshahi" />
+          <option value="Khulna" />
+        </datalist>
 
         <fieldset className="fieldset bg-base-100 border border-base-300 rounded-2xl w-full max-w-lg p-6 shadow-xl">
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -62,6 +105,8 @@ export default function AddTicketForm() {
                 <label className="label font-semibold">From (Location)</label>
                 <input
                   name="from"
+                  list="locations"
+                  autoComplete="off"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   placeholder="From"
                   required
@@ -71,6 +116,8 @@ export default function AddTicketForm() {
                 <label className="label font-semibold">To (Location)</label>
                 <input
                   name="to"
+                  list="locations"
+                  autoComplete="off"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   placeholder="To"
                   required
@@ -81,12 +128,19 @@ export default function AddTicketForm() {
             <div className="grid grid-cols-3 gap-3">
               <div>
                 <label className="label font-semibold">Transport Type</label>
-                <input
+                <select
                   name="transportType"
-                  className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
-                  placeholder="Bus / Train / Launch / Plane"
+                  className="select select-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   required
-                />
+                >
+                  <option disabled selected>
+                    Select Transport Type
+                  </option>
+                  <option>Bus</option>
+                  <option>Train</option>
+                  <option>Launch</option>
+                  <option>Plane</option>
+                </select>
               </div>
 
               <div>
@@ -96,6 +150,7 @@ export default function AddTicketForm() {
                   type="number"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   placeholder="850"
+                  min="0"
                   required
                 />
               </div>
@@ -107,6 +162,7 @@ export default function AddTicketForm() {
                   type="number"
                   className="input input-bordered w-full focus:outline-none focus:ring focus:ring-primary/40"
                   placeholder="40"
+                  min="0"
                   required
                 />
               </div>
@@ -126,12 +182,15 @@ export default function AddTicketForm() {
 
             <div>
               <label className="label font-semibold">Perks</label>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex justify-center items-start gap-1 flex-col">
                 {availablePerks.map((p) => (
-                  <label key={p} className="label cursor-pointer space-x-2">
+                  <label key={p} className="label cursor-pointer">
                     <input
                       type="checkbox"
                       className="checkbox checkbox-primary"
+                      checked={selectedPerks.includes(p)}
+                      onChange={() => handlePerkChange(p)}
+                      name="perks"
                     />
                     <span className="ml-2">{p}</span>
                   </label>
@@ -144,17 +203,19 @@ export default function AddTicketForm() {
               <input
                 type="file"
                 accept="image/*"
-                // onChange={handleImageChange}
+                onChange={handleImage}
                 className="file-input file-input-bordered w-full"
+                required
               />
-              <div className="mt-3">
-                <p className="label font-semibold">Preview</p>
-                <img
-                  //   src={imagePreview}
-                  alt="preview"
-                  className="rounded-lg max-h-44 object-cover border border-base-300"
-                />
-              </div>
+              {imageFile && (
+                <div className="mt-3">
+                  <img
+                    src={imageFile}
+                    alt="preview"
+                    className="rounded-lg  w-full object-cover border border-base-300"
+                  />
+                </div>
+              )}
             </div>
 
             <div>
