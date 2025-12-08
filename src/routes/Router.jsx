@@ -4,6 +4,9 @@ import Loading from "../components/ui/Loading";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NonUserRounte from "./NonUserRounte";
+import ResetPassword from "../pages/ResetPassword";
+import PrivateRoute from "./PrivateRoute";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -21,11 +24,27 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/reset-password",
+        element: (
+          <NonUserRounte>
+            <ResetPassword></ResetPassword>
+          </NonUserRounte>
+        ),
+      },
+      {
         path: "/register",
         element: (
           <NonUserRounte>
             <Register></Register>
           </NonUserRounte>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
         ),
       },
     ],

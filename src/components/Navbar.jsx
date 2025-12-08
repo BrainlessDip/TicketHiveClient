@@ -16,11 +16,21 @@ const Navbar = () => {
   const links = (
     <>
       {user ? (
-        <li>
-          <NavLink to={"/"} className="btn-hover-primary text-[20px]">
-            Home
-          </NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink to={"/"} className="btn-hover-primary text-[20px]">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/dashboard"}
+              className="btn-hover-primary text-[20px]"
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        </>
       ) : (
         <>
           <li>

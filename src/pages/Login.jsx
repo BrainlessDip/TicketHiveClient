@@ -1,48 +1,16 @@
 import { use, useEffect, useRef, useState } from "react";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../firebase/firebase.init.js";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { AuthContext } from "../contexts/AuthContext.jsx";
 
-const googleProvider = new GoogleAuthProvider();
-
 const Login = () => {
-  const { setUser } = use(AuthContext);
+  const { setUser, handleSignin } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const emailRef = useRef();
-
-  const handleSignin = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      setUser(user);
-      navigate("/");
-    } catch (error) {
-      switch (error.code) {
-        case "auth/user-disabled":
-          toast.error(
-            "Your account has been disabled. Please contact support."
-          );
-          break;
-        case "auth/popup-closed-by-user":
-          toast.error("Sign-in cancelled. Please try again.");
-          break;
-        case "auth/network-request-failed":
-          toast.error("Network error. Check your connection and try again.");
-          break;
-        default:
-          toast.error("An unexpected error occurred. Please try again later.");
-          break;
-      }
-    }
-  };
 
   const handleEmailSignin = async (e) => {
     e.preventDefault();
@@ -100,7 +68,6 @@ const Login = () => {
               ref={emailRef}
               required
             />
-
             <label className="label font-semibold">Password</label>
             <div className="relative w-full">
               <input
@@ -119,11 +86,18 @@ const Login = () => {
                 {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
               </button>
             </div>
-
-            <button className="btn btn-primary mt-4 w-full text-[17px] shadow-md hover:shadow-lg duration-200">
+            <p className="text-[15px] text-center text-primary">
+              Forgot your account password?{" "}
+              <span
+                className="font-semibold hover:underline cursor-pointer"
+                onClick={() => navigate("/reset-password")}
+              >
+                Reset it
+              </span>
+            </p>
+            <button className="btn btn-primary mt-0 w-full text-[17px] shadow-md hover:shadow-lg duration-200">
               Login
             </button>
-
             <p className="mt-1 text-[15px] text-center text-primary">
               Don’t have an account?{" "}
               <span

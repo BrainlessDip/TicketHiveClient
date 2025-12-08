@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { toast } from "react-toastify";
+import useAxios from "../hooks/useAxios";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -17,6 +18,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState(JSON.parse(localStorage.getItem("dark")));
   const [loading, setLoading] = useState(true);
+  const api = useAxios();
 
   const handleSignoutUser = () => {
     signOut(auth)
@@ -79,6 +81,12 @@ const AuthProvider = ({ children }) => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       setUser(user);
+
+      await api.post("/register", {
+        name: user.displayName,
+        email: user.email,
+      });
+
       return result;
     } catch (error) {
       switch (error.code) {

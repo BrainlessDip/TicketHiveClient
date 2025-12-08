@@ -2,9 +2,11 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext";
+import useAxios from "./../hooks/useAxios";
 
 const Register = () => {
   const { handleRegister, handleSignin } = useContext(AuthContext);
+  const api = useAxios();
   const navigate = useNavigate();
 
   const registerUser = async (e) => {
@@ -31,7 +33,8 @@ const Register = () => {
     const result = await handleRegister(email, password, name, photoURL);
 
     if (result) {
-      navigate("/");
+      await api.post("/register", { name, email });
+      await navigate("/");
     }
   };
 
