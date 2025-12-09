@@ -48,7 +48,7 @@ const BookedTicketsCard = ({ ticket, refetch }) => {
             className={`text-sm font-medium capitalize ${
               ticket.status === "pending"
                 ? "text-yellow-500"
-                : ticket.status === "accepted"
+                : ["accepted", "paid"].includes(ticket.status)
                 ? "text-green-500"
                 : "text-red-500"
             }`}

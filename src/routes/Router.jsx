@@ -20,6 +20,7 @@ import AdvertiseTickets from "../pages/AdvertiseTickets";
 import Home from "../pages/Home";
 import TicketDetails from "../pages/TicketDetails";
 import BookedTickets from "../pages/BookedTickets";
+import Payment from "../pages/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +79,14 @@ export const router = createBrowserRouter([
           <VendorRoute>
             <AddTicket></AddTicket>
           </VendorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: (
+          <UserRoute>
+            <BookedTickets></BookedTickets>
+          </UserRoute>
         ),
       },
       {
