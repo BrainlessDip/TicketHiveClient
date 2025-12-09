@@ -19,6 +19,7 @@ import ManageUsers from "../pages/ManageUsers";
 import AdvertiseTickets from "../pages/AdvertiseTickets";
 import Home from "../pages/Home";
 import TicketDetails from "../pages/TicketDetails";
+import BookedTickets from "../pages/BookedTickets";
 
 export const router = createBrowserRouter([
   {
@@ -122,6 +123,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "/dashboard/booked-tickets",
+        element: (
+          <UserRoute>
+            <BookedTickets></BookedTickets>,
+          </UserRoute>
+        ),
       },
     ],
   },

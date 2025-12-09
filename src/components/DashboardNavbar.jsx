@@ -117,6 +117,23 @@ export default function DashboardNavbar({ children }) {
                 </>
               )}
 
+              {role === "user" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/booked-tickets"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My Booked Tickets"
+                    >
+                      <IoTicketOutline className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        My Booked Tickets
+                      </span>
+                    </Link>
+                  </li>
+                </>
+              )}
+
               {role === "admin" && (
                 <>
                   <li>

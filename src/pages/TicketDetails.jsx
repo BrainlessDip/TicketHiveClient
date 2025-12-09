@@ -21,14 +21,24 @@ const TicketDetails = () => {
     },
   });
 
-  const handleBookNow = () => {
-    bookNowModal.current.showModal();
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast(quantity);
-    bookNowModal.current.close();
+    setLoading(true);
+
+    try {
+      const res = await api.post("/submit-booking", {
+        ticketId: id,
+        quantity,
+      });
+      toast.success(res.data.message);
+      setQuantity(1);
+      bookNowModal.current.close();
+    } catch (err) {
+      const msg = err?.response?.data?.message || "Try again.";
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,7 +92,9 @@ const TicketDetails = () => {
             )}
           </p>
           <button
-            onClick={handleBookNow}
+            onClick={() => {
+              bookNowModal.current.showModal();
+            }}
             disabled={
               loading ||
               ticket.quantity === 0 ||
@@ -95,7 +107,7 @@ const TicketDetails = () => {
         : "bg-primary text-white hover:bg-primary/90 cursor-pointer"
     }`}
           >
-            {loading ? "Processing..." : `Book Now (${ticket.quantity} left)`}
+            {`Book Now (${ticket.quantity} left)`}
           </button>
         </div>
       </div>
@@ -112,7 +124,7 @@ const TicketDetails = () => {
                 <input
                   type="number"
                   name="quantity"
-                  defaultValue={quantity}
+                  value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   min={1}
                   max={ticket.quantity}
@@ -125,7 +137,7 @@ const TicketDetails = () => {
                 onClick={handleSubmit}
                 className="w-full bg-primary cursor-pointer hover:bg-primary/80 text-white dark:text-white font-medium py-3 rounded-lg"
               >
-                Submit
+                {loading ? "Processing..." : "Submit"}
               </button>
             </div>
           </div>
