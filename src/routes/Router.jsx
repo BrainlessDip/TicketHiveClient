@@ -17,6 +17,8 @@ import AdminRoute from "./AdminRoute";
 import ManageTickets from "../pages/ManageTickets";
 import ManageUsers from "../pages/ManageUsers";
 import AdvertiseTickets from "../pages/AdvertiseTickets";
+import Home from "../pages/Home";
+import TicketDetails from "../pages/TicketDetails";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +26,7 @@ export const router = createBrowserRouter([
     Component: MainLayout,
     HydrateFallback: Loading,
     children: [
-      { index: true, element: <h1>HOME</h1> },
+      { index: true, Component: Home },
       {
         path: "/login",
         element: (
@@ -47,6 +49,14 @@ export const router = createBrowserRouter([
           <NonUserRoute>
             <Register></Register>
           </NonUserRoute>
+        ),
+      },
+      {
+        path: "/ticket/:id",
+        element: (
+          <PrivateRoute>
+            <TicketDetails></TicketDetails>
+          </PrivateRoute>
         ),
       },
     ],

@@ -12,8 +12,8 @@ export default function DashboardNavbar({ children }) {
   const { theme } = use(AuthContext);
   const themeName = theme ? "dark" : "light";
   return (
-    <div>
-      <div className="drawer lg:drawer-open" data-theme={themeName}>
+    <div data-theme={themeName}>
+      <div className="drawer lg:drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}

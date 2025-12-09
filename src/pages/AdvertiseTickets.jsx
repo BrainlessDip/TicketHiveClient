@@ -30,9 +30,14 @@ const AdvertiseTickets = () => {
 
     if (result.isConfirmed) {
       try {
-        await api.patch(`/advertise-tickets/${id}`, { action });
+        const res = await api.patch(`/advertise-tickets/${id}`, { action });
         refetch();
-        toast.success(`Ticket ${action}ed successfully!`);
+        if (res.data.success) {
+          return toast.success(res.data.message);
+        }
+        {
+          return toast.error(res.data.message);
+        }
       } catch (error) {
         toast.error("Something went wrong!");
         console.error(error);
