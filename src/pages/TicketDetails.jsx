@@ -28,7 +28,7 @@ const TicketDetails = () => {
     try {
       const res = await api.post("/submit-booking", {
         ticketId: id,
-        quantity,
+        quantity: Number(quantity),
       });
       toast.success(res.data.message);
       setQuantity(1);

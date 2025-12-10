@@ -22,6 +22,7 @@ import TicketDetails from "../pages/TicketDetails";
 import BookedTickets from "../pages/BookedTickets";
 import RequestedBookings from "../pages/RequestedBookings";
 import TransactionsHistory from "../pages/TransactionsHistory";
+import RevenueOverview from "../pages/RevenueOverview";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,14 @@ export const router = createBrowserRouter([
         element: (
           <VendorRoute>
             <AddTicket></AddTicket>
+          </VendorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/revenue-overview",
+        element: (
+          <VendorRoute>
+            <RevenueOverview></RevenueOverview>
           </VendorRoute>
         ),
       },

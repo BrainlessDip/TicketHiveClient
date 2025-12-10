@@ -18,11 +18,16 @@ const MyAddedTickets = () => {
   });
 
   return (
-    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {tickets.map((ticket, index) => (
-        <TicketCard key={index} ticket={ticket} refetch={refetch} />
-      ))}
-    </div>
+    <>
+      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">
+        My Added Tickets
+      </h1>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {tickets.map((ticket, index) => (
+          <TicketCard key={index} ticket={ticket} refetch={refetch} />
+        ))}
+      </div>
+    </>
   );
 };
 

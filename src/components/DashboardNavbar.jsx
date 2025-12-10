@@ -7,6 +7,7 @@ import useRole from "../hooks/useRole";
 import { AuthContext } from "./../contexts/AuthContext";
 import { MdHistory } from "react-icons/md";
 import { FaAdversal, FaPeopleGroup } from "react-icons/fa6";
+import { GrOverview } from "react-icons/gr";
 
 export default function DashboardNavbar({ children }) {
   const { role } = useRole();
@@ -124,6 +125,18 @@ export default function DashboardNavbar({ children }) {
                       <LuTicketCheck className="my-1.5 inline-block size-4" />
                       <span className="is-drawer-close:hidden">
                         Requested Bookings
+                      </span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/revenue-overview"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Revenue Overview"
+                    >
+                      <GrOverview className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Revenue Overview
                       </span>
                     </Link>
                   </li>
