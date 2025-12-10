@@ -1,38 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
-import TicketCardX from "./ui/TicketCardX";
+import TicketCardX from "../components/ui/TicketCardX";
 import useAxios from "../hooks/useAxios";
-import { Link } from "react-router";
 
-const LatestTickets = () => {
+const AllTickets = () => {
   const api = useAxios();
 
   const { data: tickets = [] } = useQuery({
-    queryKey: ["all-lastest-tickets"],
+    queryKey: ["alltickets"],
     queryFn: async () => {
-      const res = await api.get(`/recent-tickets`);
+      const res = await api.get(`/all-tickets`);
       return res.data;
     },
   });
+
   return (
     <div>
       <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">
-        Latest Tickets
+        All Tickets
       </h1>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {tickets.map((ticket, index) => (
           <TicketCardX key={index} ticket={ticket} />
         ))}
       </div>
-      <div className="flex justify-center items-center mt-5">
-        <Link
-          to={"/all-tickets"}
-          className="btn btn-dash btn-primary rounded-3xl text-[20px]"
-        >
-          Show More
-        </Link>
-      </div>
     </div>
   );
 };
 
-export default LatestTickets;
+export default AllTickets;

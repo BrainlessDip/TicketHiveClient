@@ -30,9 +30,25 @@ const Navbar = () => {
               Dashboard
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to={"/all-tickets"}
+              className="btn-hover-primary text-[20px]"
+            >
+              All Tickets
+            </NavLink>
+          </li>
         </>
       ) : (
         <>
+          <li>
+            <NavLink
+              to={"/all-tickets"}
+              className="btn-hover-primary text-[20px]"
+            >
+              All Tickets
+            </NavLink>
+          </li>
           <li>
             <NavLink to={"/login"} className="btn-hover-primary text-[20px]">
               Login

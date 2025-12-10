@@ -9,7 +9,7 @@ const Loading = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${bgColor}`}
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${bgColor} `}
     >
       <DotLoader color={loaderColor} />
       <span

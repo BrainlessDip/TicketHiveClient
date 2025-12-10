@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../components/ui/Loading";
 
 const TransactionsHistory = () => {
   const { user } = useContext(AuthContext);
   const api = useAxiosSecure();
 
-  const { data: transactions = [] } = useQuery({
+  const { data: transactions = [], isLoading } = useQuery({
     queryKey: ["transactions-history", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -15,6 +16,10 @@ const TransactionsHistory = () => {
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

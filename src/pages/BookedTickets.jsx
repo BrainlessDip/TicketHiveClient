@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import BookedTicketsCard from "../components/ui/BookedTicketsCard";
 import { toast } from "react-toastify";
 import { useSearchParams } from "react-router";
+import Loading from "../components/ui/Loading";
 
 const BookedTickets = () => {
   const { user } = useContext(AuthContext);
@@ -12,7 +13,11 @@ const BookedTickets = () => {
   const success = searchParams.get("type");
   const api = useAxiosSecure();
 
-  const { data: tickets = [], refetch } = useQuery({
+  const {
+    data: tickets = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["user-booked-tickets", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -39,6 +44,10 @@ const BookedTickets = () => {
 
     handleStatus();
   }, [success, searchParams, api, refetch]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

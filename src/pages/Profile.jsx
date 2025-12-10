@@ -2,12 +2,13 @@ import { useContext } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../contexts/AuthContext";
+import Loading from "../components/ui/Loading";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  const { data = {} } = useQuery({
+  const { data = {}, isLoading } = useQuery({
     queryKey: ["user-data", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -15,6 +16,10 @@ const Profile = () => {
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

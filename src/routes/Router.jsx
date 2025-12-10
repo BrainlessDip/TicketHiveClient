@@ -23,6 +23,8 @@ import BookedTickets from "../pages/BookedTickets";
 import RequestedBookings from "../pages/RequestedBookings";
 import TransactionsHistory from "../pages/TransactionsHistory";
 import RevenueOverview from "../pages/RevenueOverview";
+import AllTickets from "../pages/AllTickets";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +33,7 @@ export const router = createBrowserRouter([
     HydrateFallback: Loading,
     children: [
       { index: true, Component: Home },
+      { path: "/all-tickets", Component: AllTickets },
       {
         path: "/login",
         element: (
@@ -168,5 +171,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);
