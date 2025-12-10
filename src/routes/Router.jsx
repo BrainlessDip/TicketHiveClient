@@ -20,8 +20,8 @@ import AdvertiseTickets from "../pages/AdvertiseTickets";
 import Home from "../pages/Home";
 import TicketDetails from "../pages/TicketDetails";
 import BookedTickets from "../pages/BookedTickets";
-import Payment from "../pages/Payment";
 import RequestedBookings from "../pages/RequestedBookings";
+import TransactionsHistory from "../pages/TransactionsHistory";
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +80,14 @@ export const router = createBrowserRouter([
           <VendorRoute>
             <AddTicket></AddTicket>
           </VendorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/transactions-history",
+        element: (
+          <UserRoute>
+            <TransactionsHistory></TransactionsHistory>
+          </UserRoute>
         ),
       },
       {

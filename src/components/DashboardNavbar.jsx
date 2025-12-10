@@ -5,6 +5,7 @@ import { IoTicketOutline } from "react-icons/io5";
 import { LuTicketCheck } from "react-icons/lu";
 import useRole from "../hooks/useRole";
 import { AuthContext } from "./../contexts/AuthContext";
+import { MdHistory } from "react-icons/md";
 import { FaAdversal, FaPeopleGroup } from "react-icons/fa6";
 
 export default function DashboardNavbar({ children }) {
@@ -140,6 +141,19 @@ export default function DashboardNavbar({ children }) {
                       <IoTicketOutline className="my-1.5 inline-block size-4" />
                       <span className="is-drawer-close:hidden">
                         My Booked Tickets
+                      </span>
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      to="/dashboard/transactions-history"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Transactions History"
+                    >
+                      <MdHistory className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Transactions History
                       </span>
                     </Link>
                   </li>
