@@ -41,11 +41,16 @@ const BookedTickets = () => {
   }, [success, searchParams, api, refetch]);
 
   return (
-    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {tickets.map((ticket, index) => (
-        <BookedTicketsCard key={index} ticket={ticket} refetch={refetch} />
-      ))}
-    </div>
+    <>
+      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">
+        My Booked Tickets
+      </h1>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {tickets.map((ticket, index) => (
+          <BookedTicketsCard key={index} ticket={ticket} refetch={refetch} />
+        ))}
+      </div>
+    </>
   );
 };
 

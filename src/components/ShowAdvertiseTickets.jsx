@@ -1,10 +1,9 @@
-import React from "react";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import TicketCardX from "./ui/TicketCardX";
+import useAxios from "../hooks/useAxios";
 
 const ShowAdvertiseTickets = () => {
-  const api = useAxiosSecure();
+  const api = useAxios();
 
   const { data: tickets = [] } = useQuery({
     queryKey: ["all-ad-tickets"],

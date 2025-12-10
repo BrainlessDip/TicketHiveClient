@@ -42,6 +42,9 @@ const ManageTickets = () => {
 
   return (
     <>
+      <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">
+        Manage Tickets
+      </h1>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           <thead>
