@@ -21,6 +21,7 @@ import Home from "../pages/Home";
 import TicketDetails from "../pages/TicketDetails";
 import BookedTickets from "../pages/BookedTickets";
 import Payment from "../pages/Payment";
+import RequestedBookings from "../pages/RequestedBookings";
 
 export const router = createBrowserRouter([
   {
@@ -94,6 +95,14 @@ export const router = createBrowserRouter([
         element: (
           <VendorRoute>
             <EditTicket></EditTicket>
+          </VendorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/requested-bookings",
+        element: (
+          <VendorRoute>
+            <RequestedBookings></RequestedBookings>
           </VendorRoute>
         ),
       },

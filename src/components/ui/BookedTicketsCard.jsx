@@ -70,7 +70,9 @@ const BookedTicketsCard = ({ ticket, refetch }) => {
         <p className="mb-1">
           <strong>Departure:</strong>{" "}
           {new Date(ticket.departure).toLocaleString()}{" "}
-          <Countdown departure={ticket.departure} />
+          {ticket.status !== "rejected" && (
+            <Countdown departure={ticket.departure} />
+          )}
         </p>
 
         <p className="mb-1">

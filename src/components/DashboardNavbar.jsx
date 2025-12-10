@@ -114,6 +114,18 @@ export default function DashboardNavbar({ children }) {
                       </span>
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/dashboard/requested-bookings"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Requested Bookings"
+                    >
+                      <LuTicketCheck className="my-1.5 inline-block size-4" />
+                      <span className="is-drawer-close:hidden">
+                        Requested Bookings
+                      </span>
+                    </Link>
+                  </li>
                 </>
               )}
 
