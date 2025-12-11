@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import Loading from "../components/ui/Loading";
 import Navbar from "../components/Navbar";
+import Foooter from "../components/Foooter";
 
 const MainLayout = () => {
   const { loading } = use(AuthContext);
@@ -14,6 +15,7 @@ const MainLayout = () => {
         <>
           <Navbar></Navbar>
           <Outlet></Outlet>
+          <Foooter></Foooter>
         </>
       )}
     </div>

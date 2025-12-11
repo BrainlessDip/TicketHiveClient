@@ -17,7 +17,7 @@ const WhyChooseUs = () => {
         {reasons.map((reason, index) => (
           <div
             key={index}
-            className="p-6 bg-blue-50 rounded-lg text-center hover:bg-blue-100 transition"
+            className="p-6 bg-blue-50 rounded-lg text-center hover:bg-blue-100 transition text-black hover:scale-105 hover:text-shadow-accent"
           >
             <p className="font-semibold">{reason}</p>
           </div>

@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
-import Loading from "../components/ui/Loading";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
@@ -25,6 +24,7 @@ import TransactionsHistory from "../pages/TransactionsHistory";
 import RevenueOverview from "../pages/RevenueOverview";
 import AllTickets from "../pages/AllTickets";
 import NotFound from "../pages/NotFound";
+import Loading from "../components/ui/Loading";
 
 export const router = createBrowserRouter([
   {

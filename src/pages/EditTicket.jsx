@@ -15,7 +15,7 @@ const EditTicket = () => {
   const { id } = useParams();
   const api = useAxiosSecure();
 
-  const { data: ticket = {}, refetch } = useQuery({
+  const { data: ticket = {} } = useQuery({
     queryKey: ["user-ticket", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
