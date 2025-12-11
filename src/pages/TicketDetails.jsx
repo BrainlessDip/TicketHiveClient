@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import Countdown from "../components/ui/Countdown";
 import { useRef } from "react";
+import Loading from "../components/ui/Loading";
 
 const TicketDetails = () => {
   const api = useAxiosSecure();
@@ -13,7 +14,7 @@ const TicketDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const bookNowModal = useRef();
 
-  const { data: ticket = {} } = useQuery({
+  const { data: ticket = {}, isLoading } = useQuery({
     queryKey: ["ticket-details", id],
     queryFn: async () => {
       const res = await api.get(`/my-tickets/${id}`);
@@ -40,6 +41,10 @@ const TicketDetails = () => {
       setLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-4 min-h-screen">

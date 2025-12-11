@@ -1,16 +1,117 @@
-# React + Vite
+# TicketHiveClient
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An **Online Ticket Booking Platform** built with the **MERN stack**. Users can explore, book, and manage travel tickets for Bus, Train, Launch, and Plane. The platform supports three user roles: **User**, **Vendor**, and **Admin**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Project Overview
 
-## React Compiler
+TicketHive is a complete ticket booking system where:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Users** can browse and book tickets, view booking history, and make payments.
+- **Vendors** can add tickets, manage bookings, and track revenue.
+- **Admins** can manage users, approve/reject tickets, and advertise tickets on the homepage.
 
-## Expanding the ESLint configuration
+The system is designed for full responsiveness and provides a clean, modern UI with proper spacing, alignment, and accessible design.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🌐 Live Demo
+
+[Live Site Link](https://ticket-hive-gilt.vercel.app)
+
+---
+
+## 📌 Key Features
+
+### General
+
+- Fully responsive design for mobile, tablet, and desktop
+- Dark/Light mode toggle
+- Secure Firebase & MongoDB credentials via environment variables
+- Loading spinners & error pages for smooth UX
+- JWT/Firebase token authentication
+
+### Home Page
+
+- Hero Banner/Slider
+- Advertisement Section (admin-controlled, 6 tickets)
+- Latest Tickets Section
+- Two custom sections (e.g., Popular Routes, Why Choose Us)
+
+### Authentication
+
+- User login & registration with email/password
+- Google social login
+- Password validation (uppercase, lowercase, min 6 characters)
+- Private routes for authenticated users
+
+### All Tickets Page
+
+- Display only approved tickets
+- Search by From → To locations
+- Filter by transport type
+- Sort by price (low → high / high → low)
+- Pagination (6–9 tickets per page)
+
+### Ticket Details Page
+
+- Full ticket details
+- Book Now button with quantity validation
+- Countdown timer for ticket departure
+- Disabled booking for expired or sold-out tickets
+
+### User Dashboard
+
+- Profile overview
+- My Booked Tickets (with payment integration via Stripe)
+- Transaction History
+
+### Vendor Dashboard
+
+- Add Ticket form with perks and image upload
+- My Added Tickets (update/delete, verification status)
+- Requested Bookings (accept/reject)
+- Revenue Overview with charts
+
+### Admin Dashboard
+
+- Manage Tickets (approve/reject)
+- Manage Users (assign roles, mark vendor fraud)
+- Advertise Tickets (max 6 at a time)
+
+### Optional Enhancements
+
+- PDF ticket download after payment
+- Booking cancellation (before vendor acceptance)
+- Live seat map for buses
+- React Hook Form integration
+- Swiper.js for homepage slider
+
+---
+
+## 📦 Technologies Used
+
+**Frontend**
+
+- React 19
+- TailwindCSS & DaisyUI
+- React Router
+- React Query
+- Recharts
+- React Spinners
+- React Toastify
+- SweetAlert2
+
+**Backend**
+
+- Node.js & Express
+- MongoDB
+- Firebase (Authentication & Storage)
+- Stripe for payments
+
+**Utilities**
+
+- Axios for API requests
+- Date-fns for date management
+- ESLint for code quality
