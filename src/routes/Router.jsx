@@ -24,7 +24,7 @@ import TransactionsHistory from "../pages/TransactionsHistory";
 import RevenueOverview from "../pages/RevenueOverview";
 import AllTickets from "../pages/AllTickets";
 import NotFound from "../pages/NotFound";
-import Loading from "../components/ui/Loading";
+import Loading from "@/components/ui/Loading";
 
 export const router = createBrowserRouter([
   {
