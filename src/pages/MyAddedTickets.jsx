@@ -3,12 +3,17 @@ import { AuthContext } from "../contexts/AuthContext";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import TicketCard from "../components/ui/TicketCard";
+import Loading from "../components/ui/Loading";
 
 const MyAddedTickets = () => {
   const { user } = useContext(AuthContext);
   const api = useAxiosSecure();
 
-  const { data: tickets = [], refetch } = useQuery({
+  const {
+    data: tickets = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["user-tickets", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -16,6 +21,10 @@ const MyAddedTickets = () => {
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

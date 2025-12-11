@@ -4,12 +4,17 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import Loading from "../components/ui/Loading";
 
 const ManageUsers = () => {
   const { user } = useContext(AuthContext);
   const api = useAxiosSecure();
 
-  const { data: users = [], refetch } = useQuery({
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["all-users", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -38,6 +43,10 @@ const ManageUsers = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

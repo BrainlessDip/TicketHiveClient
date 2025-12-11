@@ -4,12 +4,17 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import Loading from "../components/ui/Loading";
 
 const RequestedBookings = () => {
   const { user } = useContext(AuthContext);
   const api = useAxiosSecure();
 
-  const { data: tickets = [], refetch } = useQuery({
+  const {
+    data: tickets = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["all-tickets-req", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -41,7 +46,9 @@ const RequestedBookings = () => {
       }
     }
   };
-
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">

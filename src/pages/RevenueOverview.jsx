@@ -9,10 +9,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import Loading from "../components/ui/Loading";
 
 const RevenueOverview = () => {
   const api = useAxiosSecure();
-  const { data = [] } = useQuery({
+  const { data = [], isLoading } = useQuery({
     queryKey: ["revenue-overview"],
     queryFn: async () => {
       const res = await api.get(`/revenue-overview`);
@@ -21,6 +22,11 @@ const RevenueOverview = () => {
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">

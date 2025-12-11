@@ -2,15 +2,19 @@ import React, { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import TicketCard from "../components/ui/TicketCard";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import Loading from "../components/ui/Loading";
 
 const AdvertiseTickets = () => {
   const { user } = useContext(AuthContext);
   const api = useAxiosSecure();
 
-  const { data: tickets = [], refetch } = useQuery({
+  const {
+    data: tickets = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["all-advertise-tickets", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -44,6 +48,10 @@ const AdvertiseTickets = () => {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
