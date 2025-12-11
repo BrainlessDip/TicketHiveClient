@@ -28,7 +28,7 @@ const LatestTickets = () => {
           to={"/all-tickets"}
           className="btn btn-dash btn-primary rounded-3xl text-[20px]"
         >
-          Show More
+          Show All
         </Link>
       </div>
     </div>

@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import TicketCardX from "../components/ui/TicketCardX";
 import useAxios from "../hooks/useAxios";
 
 const AllTickets = () => {
   const api = useAxios();
-
-  const { data: tickets = [] } = useQuery({
-    queryKey: ["all-tickets"],
-    queryFn: async () => {
-      const res = await api.get(`/all-tickets`);
-      return res.data;
-    },
-  });
-
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [transportType, setTransportType] = useState("");
   const [sortOrder, setSortOrder] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useQuery({
+    queryKey: ["tota-page"],
+    queryFn: async () => {
+      const res = await api.get(`/all-tickets?total=1`);
+      setTotalPages(res.data.totalPage);
+    },
+  });
+
+  const { data: tickets = [], refetch } = useQuery({
+    queryKey: ["all-tickets"],
+    queryFn: async () => {
+      const res = await api.get(`/all-tickets?page=${currentPage}`);
+      return res.data;
+    },
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [currentPage, refetch]);
 
   const filteredTickets = tickets
     .filter((ticket) => {
@@ -105,6 +118,35 @@ const AllTickets = () => {
         {filteredTickets.map((ticket, index) => (
           <TicketCardX key={index} ticket={ticket} />
         ))}
+      </div>
+      <div className="flex items-center justify-center mt-8 gap-2">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentPage(i + 1)}
+            className={`px-3 py-1 border rounded ${
+              currentPage === i + 1 ? "bg-primary text-white" : ""
+            }`}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

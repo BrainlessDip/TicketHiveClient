@@ -58,6 +58,7 @@ const ManageTickets = () => {
               <th>Departure</th>
               <th>Perks</th>
               <th>Status</th>
+              <th>Hide For Fraud</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -78,6 +79,7 @@ const ManageTickets = () => {
                 <td>{new Date(ticket.departure).toLocaleString()}</td>
                 <td>{ticket.perks.join(", ") || "None"}</td>
                 <td className="capitalize">{ticket.verificationStatus}</td>
+                <td className="capitalize">{String(ticket.hideForFraud)}</td>
                 <td className="capitalize">
                   <div className="flex justify-start items-start gap-3">
                     <button
