@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
-
+import { FaBus } from "react-icons/fa";
 const Navbar = () => {
   const { user, theme, setTheme, handleSignoutUser } = useContext(AuthContext);
 
@@ -93,7 +93,8 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <Link to={"/"} className="btn-hover-primary">
+          <Link to={"/"} className="btn-hover-primary ">
+            <FaBus />
             Ticket Hive
           </Link>
         </div>
@@ -102,7 +103,10 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user && (
-            <div className="dropdown dropdown-end ">
+            <div
+              className="dropdown dropdown-end tooltip tooltip-bottom tooltip-info"
+              data-tip={user?.displayName}
+            >
               <div
                 tabIndex={0}
                 role="button"

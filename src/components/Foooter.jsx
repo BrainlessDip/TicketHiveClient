@@ -9,7 +9,7 @@ const Foooter = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center gap-2">
-              <FaBus className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+              <FaBus className="w-6 h-6 sm:w-8 sm:h-8" />
               <span className="text-xl sm:text-2xl font-bold">TicketHive</span>
             </div>
             <p className="text-sm sm:text-base opacity-80 max-w-xs">
