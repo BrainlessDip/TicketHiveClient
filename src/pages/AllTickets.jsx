@@ -74,7 +74,7 @@ const AllTickets = () => {
         <option value="Khulna" />
       </datalist>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-6 justify-center">
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <input
           list="locations"
           type="text"
@@ -96,7 +96,7 @@ const AllTickets = () => {
           name="transportType"
           onChange={(e) => setTransportType(e.target.value)}
           value={transportType}
-          className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40"
+          className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full sm:w-1/4"
           required
         >
           <option disabled selected>
@@ -112,7 +112,7 @@ const AllTickets = () => {
           name="sortOrder"
           onChange={(e) => setSortOrder(e.target.value)}
           value={sortOrder}
-          className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40"
+          className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full sm:w-1/4"
           required
         >
           <option disabled selected>
@@ -125,7 +125,7 @@ const AllTickets = () => {
 
       {filteredTickets.length > 0 ? (
         <>
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
             {filteredTickets.map((ticket, index) => (
               <TicketCardX key={index} ticket={ticket} />
             ))}

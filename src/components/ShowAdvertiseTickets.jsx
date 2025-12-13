@@ -38,7 +38,7 @@ const ShowAdvertiseTickets = () => {
       <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-center mt-5 underline">
         Advertisement Tickets
       </h1>
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
         {isLoading ? (
           <>
             <TicketCardX key={1} ticket={dumpData} />
