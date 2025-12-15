@@ -62,7 +62,7 @@ const ManageTickets = () => {
               <th>Created By</th>
               <th>Route</th>
               <th>Transport</th>
-              <th>Total Value</th>
+
               <th>Departure</th>
               <th>Perks</th>
               <th>Status</th>
@@ -80,10 +80,6 @@ const ManageTickets = () => {
                   {ticket.from} → {ticket.to}
                 </td>
                 <td>{ticket.transportType}</td>
-                <td>
-                  {ticket.pricePerUnit} × {ticket.quantity} ={" "}
-                  {ticket.pricePerUnit * ticket.quantity}
-                </td>
                 <td>{new Date(ticket.departure).toLocaleString()}</td>
                 <td>{ticket.perks.join(", ") || "None"}</td>
                 <td className="capitalize">{ticket.verificationStatus}</td>

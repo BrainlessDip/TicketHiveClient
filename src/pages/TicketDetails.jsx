@@ -130,7 +130,9 @@ const TicketDetails = () => {
                   type="number"
                   name="quantity"
                   value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) =>
+                    setQuantity(Math.min(e.target.value, ticket.quantity))
+                  }
                   min={1}
                   max={ticket.quantity}
                   placeholder="Enter quantity"
