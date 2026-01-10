@@ -14,7 +14,7 @@ const AllTickets = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useQuery({
-    queryKey: ["tota-page"],
+    queryKey: ["total-page"],
     queryFn: async () => {
       const res = await api.get(`/all-tickets?total=1`);
       setTotalPages(res.data.totalPage);
@@ -26,7 +26,7 @@ const AllTickets = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["all-tickets"],
+    queryKey: ["all-tickets", currentPage],
     queryFn: async () => {
       const res = await api.get(`/all-tickets?page=${currentPage}`);
       return res.data;
@@ -75,33 +75,40 @@ const AllTickets = () => {
       </datalist>
 
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
-        <input
-          list="locations"
-          type="text"
-          placeholder="From Location"
+        <select
+          name="fromLocation"
           value={fromLocation}
           onChange={(e) => setFromLocation(e.target.value)}
-          className="border rounded px-3 py-2 w-full sm:w-1/4"
-        />
-        <input
-          type="text"
-          list="locations"
-          placeholder="To Location"
+          className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full sm:w-1/4"
+        >
+          <option value="">All Locations</option>
+          <option>Dhaka</option>
+          <option>Chittagong</option>
+          <option>Sylhet</option>
+          <option>Rajshahi</option>
+          <option>Khulna</option>
+        </select>
+        <select
+          name="toLocation"
           value={toLocation}
           onChange={(e) => setToLocation(e.target.value)}
-          className="border rounded px-3 py-2 w-full sm:w-1/4"
-        />
+          className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full sm:w-1/4"
+        >
+          <option value="">All Locations</option>
+          <option>Dhaka</option>
+          <option>Chittagong</option>
+          <option>Sylhet</option>
+          <option>Rajshahi</option>
+          <option>Khulna</option>
+        </select>
 
         <select
           name="transportType"
           onChange={(e) => setTransportType(e.target.value)}
           value={transportType}
           className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full sm:w-1/4"
-          required
         >
-          <option disabled selected>
-            Select Transport Type
-          </option>
+          <option value="">All Transport Types</option>
           <option>Bus</option>
           <option>Train</option>
           <option>Launch</option>
@@ -113,11 +120,8 @@ const AllTickets = () => {
           onChange={(e) => setSortOrder(e.target.value)}
           value={sortOrder}
           className="select select-bordered focus:outline-none focus:ring focus:ring-primary/40 w-full sm:w-1/4"
-          required
         >
-          <option disabled selected>
-            Sort by Price
-          </option>
+          <option value="">Default Order</option>
           <option value="asc">Low to High</option>
           <option value="desc">High to Low</option>
         </select>

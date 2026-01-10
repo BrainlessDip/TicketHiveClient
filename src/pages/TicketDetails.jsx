@@ -6,10 +6,14 @@ import { toast } from "react-toastify";
 import Countdown from "../components/ui/Countdown";
 import { useRef } from "react";
 import Loading from "../components/ui/Loading";
+import useAxios from "../hooks/useAxios";
+import useAuth from "../hooks/useAuth";
 
 const TicketDetails = () => {
-  const api = useAxiosSecure();
+  const apiSecure = useAxiosSecure();
+  const api = useAxios();
   const { id } = useParams();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const bookNowModal = useRef();
@@ -27,7 +31,7 @@ const TicketDetails = () => {
     setLoading(true);
 
     try {
-      const res = await api.post("/submit-booking", {
+      const res = await apiSecure.post("/submit-booking", {
         ticketId: id,
         quantity: Number(quantity),
       });
@@ -103,11 +107,12 @@ const TicketDetails = () => {
             disabled={
               loading ||
               ticket.quantity === 0 ||
+              !user ||
               new Date() >= new Date(ticket.departure)
             }
             className={`w-full mt-4 py-3 rounded-full font-bold
     ${
-      ticket.quantity === 0 || new Date() >= new Date(ticket.departure)
+      ticket.quantity === 0 || new Date() >= new Date(ticket.departure) || !user
         ? "bg-gray-400 text-gray-200 cursor-not-allowed"
         : "bg-primary text-white hover:bg-primary/90 cursor-pointer"
     }`}
