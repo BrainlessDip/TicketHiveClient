@@ -25,6 +25,8 @@ import RevenueOverview from "../pages/RevenueOverview";
 import AllTickets from "../pages/AllTickets";
 import NotFound from "../pages/NotFound";
 import Loading from "@/components/ui/Loading";
+import ContactUs from "../pages/ContactUs";
+import About from "../pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +36,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "/all-tickets", Component: AllTickets },
+      { path: "/contact", Component: ContactUs },
+      { path: "/about", Component: About },
       {
         path: "/login",
         element: (
