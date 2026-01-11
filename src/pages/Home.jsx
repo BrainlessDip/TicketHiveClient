@@ -7,6 +7,7 @@ import Hero from "../components/Hero";
 import JoinJourney from "../components/about/JoinJourney";
 import ImpactStats from "../components/about/ImpactStats";
 import FAQ from "../components/FAQ";
+import Testimonials from "../components/Testimonials";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       <WhyChooseUs></WhyChooseUs>
       <ImpactStats></ImpactStats>
       <FAQ />
+      <Testimonials />
       <JoinJourney></JoinJourney>
     </div>
   );
