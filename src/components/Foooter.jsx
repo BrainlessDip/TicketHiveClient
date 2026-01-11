@@ -32,7 +32,7 @@ const Foooter = () => {
               </li>
               <li>
                 <Link
-                  to="/tickets"
+                  to="/all-tickets"
                   className="link link-hover text-sm hover:text-primary transition-colors"
                 >
                   All Tickets
@@ -52,6 +52,22 @@ const Foooter = () => {
                   className="link link-hover text-sm hover:text-primary transition-colors"
                 >
                   About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/help"
+                  className="link link-hover text-sm hover:text-primary transition-colors"
+                >
+                  Help Center
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/privacy"
+                  className="link link-hover text-sm hover:text-primary transition-colors"
+                >
+                  Privacy Policy
                 </Link>
               </li>
             </ul>

@@ -27,6 +27,8 @@ import NotFound from "../pages/NotFound";
 import Loading from "@/components/ui/Loading";
 import ContactUs from "../pages/ContactUs";
 import About from "../pages/About";
+import Help from "../pages/Help";
+import Privacy from "../pages/Privacy";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +40,8 @@ export const router = createBrowserRouter([
       { path: "/all-tickets", Component: AllTickets },
       { path: "/contact", Component: ContactUs },
       { path: "/about", Component: About },
+      { path: "/help", Component: Help },
+      { path: "/privacy", Component: Privacy },
       {
         path: "/login",
         element: (

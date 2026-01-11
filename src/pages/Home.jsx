@@ -6,6 +6,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import Hero from "../components/Hero";
 import JoinJourney from "../components/about/JoinJourney";
 import ImpactStats from "../components/about/ImpactStats";
+import FAQ from "../components/FAQ";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <PopularRoutes></PopularRoutes>
       <WhyChooseUs></WhyChooseUs>
       <ImpactStats></ImpactStats>
+      <FAQ />
       <JoinJourney></JoinJourney>
     </div>
   );
